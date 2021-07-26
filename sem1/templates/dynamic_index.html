@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Описание книг библиотеки</title>
+</head>
+<body>
+   <h1> {{book_tytle}} </h1>
+
+    <table border = 1 width = 80%>
+      <tr>
+         <td align = center> Автор </td>
+         <td align = center> Название </td>
+         <td align = center> Цена </td>
+      </tr>
+     {%for book in books%}
+     <tr>
+        <td align=center>{{book['author']}}</td>
+        <td align=center> {{book['name']}}</td>
+        <td align = center> {{book['price']}}</td>
+     </tr>
+      {% endfor %}
+    </table>
+
+</body>
+</html>
