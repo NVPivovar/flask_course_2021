@@ -19,12 +19,12 @@ app.config['dbconfig'] = dbconfig
 @app.route('/', methods = ['GET','POST'])
 def query():
 
-    if request.method == 'GET':
-        return render_template('start_request.html')
-    if request.form.get('start_request'):
+    if request.args.get('exit'):
+        return "До свидания!"
+    elif request.args.get('start_request'):
         return(redirect(url_for('blueprint_query.student_request')))
-    elif request.form.get('exit'):
-        return "До свидания, заходите к нам еще!"
+    else:
+        return render_template('start_request.html')
 
 @app.route('/menu/')
 def menu():
