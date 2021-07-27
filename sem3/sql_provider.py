@@ -5,7 +5,7 @@ from string import Template
 
 class SQLProvider:
     def __init__(self,file_path:str) ->None:
-        self._file_path = file_path
+
         self._scripts = {}
         for file in os.listdir(file_path):
             key = file.replace('.sql', '')

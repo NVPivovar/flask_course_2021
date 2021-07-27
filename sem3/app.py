@@ -1,22 +1,30 @@
-from flask import Flask, url_for, request, render_template, redirect
+from flask import Flask, url_for, request, render_template, redirect, json
 from blueprint_query.blueprint_query import blueprint_query
 
 app = Flask(__name__)
 
 
-app.register_blueprint(blueprint_query,url_prefix='/zaproses')
+app.register_blueprint(blueprint_query, url_prefix='/zaproses')
 
 main_menu = [{"name": "Запросы", "url": "?point=1"},
  {"name": "Отчеты", "url": "?point=2"},
  {"name":  "Что-то еще",  "url":  "?point=3"},
  {"name": "Выход",  "url": "?point=exit"}]
 
-app.config['dbconfig'] = {"host" : "127.0.0.1",
-                "user" : "root",
-                "password" : "root",
-                "database" : "Decanat"}
+with open('data_files/dbconfig.json','r') as f:
+    dbconfig = json.load(f)
+app.config['dbconfig'] = dbconfig
 
 
+@app.route('/', methods = ['GET','POST'])
+def query():
+
+    if request.method == 'GET':
+        return render_template('start_request.html')
+    if request.form.get('start_request'):
+        return(redirect(url_for('blueprint_query.student_request')))
+    elif request.form.get('exit'):
+        return "До свидания, заходите к нам еще!"
 
 @app.route('/menu/')
 def menu():
